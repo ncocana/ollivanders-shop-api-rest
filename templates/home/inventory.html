@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <h1>Inventory</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Item</th>
+            <th>Sell in</th>
+            <th>Quality</th>
+        </tr>
+        {% for item in inventory %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>{{ inventory[item].name }}</td>
+            <td>{{ inventory[item].sell_in }}</td>
+            <td>{{ inventory[item].quality }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
