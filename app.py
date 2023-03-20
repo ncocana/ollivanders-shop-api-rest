@@ -39,5 +39,7 @@ def inventory():
 
             INVENTORY[item]['sell_in'] = int(values[1])
             INVENTORY[item]['quality'] = int(values[2])
+            
+            return render_template("home/inventory-update.html")
 
     return render_template("home/inventory.html", inventory=INVENTORY)
