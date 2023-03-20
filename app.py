@@ -32,14 +32,19 @@ def inventory():
             quality = INVENTORY[item]['quality']
             classItem = INVENTORY[item]['class']
 
+            # Creates an object of its respective class and proceeds to update it.
             itemObject = globals()[classItem](name, sell_in, quality)
             itemObject.update_quality()
 
+            # Converts "itemObject" to string and splits it by its commas.
             values = [v.strip() for v in str(itemObject).split(',')]
 
+            # Updates the values "sell_in" and "quality" in the database.
             INVENTORY[item]['sell_in'] = int(values[1])
             INVENTORY[item]['quality'] = int(values[2])
             
+            # Shows a page with a message indicating the succesful of the update.
             return render_template("home/inventory-update.html")
 
+    # Shows the inventory's current state if the request's method is "GET".
     return render_template("home/inventory.html", inventory=INVENTORY)
