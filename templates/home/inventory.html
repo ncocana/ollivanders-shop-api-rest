@@ -22,8 +22,10 @@
         {% endfor %}
     </table>
     <form action="/inventory" method="post">
-        <button type="submit">Update</button>
+        <button type="submit">Update all items</button>
     </form>
+    <a href="/inventory/create"><button type="submit">Create new item</button></a>
+    <a href="/inventory/delete"><button type="submit">Delete item</button></a>
     <a href="/"><button type="submit">Go back</button></a>
 
 {% endblock %}

@@ -36,8 +36,36 @@ def inventory():
             # Updates the values "sell_in" and "quality" in the database.
             db.update_item(int(values[1]), int(values[2]), id_item)
             
-            # Shows a page with a message indicating the succesful of the update.
-            return render_template("home/inventory-update.html")
+        # Shows a page with a message indicating the succesful of the update.
+        return render_template("home/inventory-update.html")
 
     # Shows the inventory's current state if the request's method is "GET".
     return render_template("home/inventory.html", inventory=INVENTORY)
+
+@app.route('/inventory/create', methods=["GET", "POST"])
+def create():
+
+    INVENTORY = db.get_all_inventory()
+    
+    classes_list = [item['class_object'] for item in INVENTORY]
+
+    if request.method == "POST":
+
+        name = request.form.get("name")
+        sell_in = request.form.get("sell_in")
+        quality = request.form.get("quality")
+        class_object = request.form.get("class_object")
+
+        if not name or not sell_in or not quality or class_object not in classes_list:
+            return render_template("home/invalid-form.html")
+        
+        db.create_item(name, sell_in, quality, class_object)
+
+        # Shows a page with a message indicating the succesful of the update.
+        return render_template("home/inventory-update.html")
+
+    return render_template("home/create-item.html", classes=set(classes_list))
+
+@app.route('/inventory/delete', methods=["GET", "POST"])
+def delete():
+    return render_template("home/delete-item.html")
