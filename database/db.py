@@ -39,7 +39,7 @@ def create_item(name, sell_in, quality, class_object):
 
 def delete_item(id):
     conn = get_db_connection()
-    conn.execute('DELETE FROM inventory (name, sell_in, quality, class_object) WHERE id = ?',
-                         (id))
+    conn.execute('DELETE FROM inventory WHERE id = ?',
+                         (id,))
     conn.commit()
     conn.close()

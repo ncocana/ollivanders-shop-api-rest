@@ -26,11 +26,10 @@ def inventory():
             class_item = item['class_object']
 
             # Creates an object of its respective class and proceeds to update it.
-            # itemObject = globals()[classItem](name, sell_in, quality)
             item_object = eval(class_item + str((name, sell_in, quality)))
             item_object.update_quality()
 
-            # Converts "itemObject" to string and splits it by its commas.
+            # Converts "item_object" to string and splits it by its commas.
             values = [v.strip() for v in str(item_object).split(',')]
 
             # Updates the values "sell_in" and "quality" in the database.
@@ -47,7 +46,7 @@ def create():
 
     INVENTORY = db.get_all_inventory()
     
-    classes_list = [item['class_object'] for item in INVENTORY]
+    classes_list = ['NormalItem', 'ConjuredItem', 'AgedBrie', 'Sulfuras', 'Backstage']
 
     if request.method == "POST":
 
@@ -68,4 +67,19 @@ def create():
 
 @app.route('/inventory/delete', methods=["GET", "POST"])
 def delete():
+
+    INVENTORY = db.get_all_inventory()
+
+    if request.method == "POST":
+
+        id_item = request.form.get("id")
+
+        if not id_item:
+            return render_template("home/invalid-form.html")
+        
+        db.delete_item(id_item)
+
+        # Shows a page with a message indicating the succesful of the update.
+        return render_template("home/inventory-update.html")
+
     return render_template("home/delete-item.html")

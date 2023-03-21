@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <h1>Delete an item</h1>
+    
+    <p>Introduce the ID of the item you want to delete.</p>
+    
+    <form action="/inventory/delete" method="post">
+        <input name="id" placeholder="Item's ID" required type="number">
+        <button type="submit">Delete item</button>
+    </form>
+
+    <a href="/inventory"><button type="submit">Go back</button></a>
+
+{% endblock %}

@@ -4,14 +4,14 @@
 
     <h1>Create a new item</h1>
     
-    <p>The inventory has updated succesfully. You can now go back to see the inventory's current state.</p>
+    <p>Introduce the item's name, number of days in which the item will be sold, its quality, and its type.</p>
     
     <form action="/inventory/create" method="post">
         <input name="name" placeholder="Name of the item" required type="text">
         <input name="sell_in" placeholder="Days to sell the item" required type="number">
         <input name="quality" placeholder="Quality of the item" required type="number">
         <select name="class_object" required>
-            <option disabled selected value="">Select a type of object</option>
+            <option disabled selected value="">Select a type of item</option>
             {% for class in classes %}
                 <option value="{{ class }}">{{ class }}</option>
             {% endfor %}
