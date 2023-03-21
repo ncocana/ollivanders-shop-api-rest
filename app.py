@@ -44,8 +44,6 @@ def inventory():
 @app.route('/inventory/create', methods=["GET", "POST"])
 def create():
 
-    INVENTORY = db.get_all_inventory()
-    
     classes_list = ['NormalItem', 'ConjuredItem', 'AgedBrie', 'Sulfuras', 'Backstage']
 
     if request.method == "POST":
@@ -67,8 +65,6 @@ def create():
 
 @app.route('/inventory/delete', methods=["GET", "POST"])
 def delete():
-
-    INVENTORY = db.get_all_inventory()
 
     if request.method == "POST":
 
