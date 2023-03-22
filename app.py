@@ -63,19 +63,22 @@ def create():
 
     return render_template("home/create-item.html", classes=set(classes_list))
 
-@app.route('/inventory/delete', methods=["GET", "POST"])
+@app.route('/inventory/delete', methods=["GET", "DELETE"])
 def delete():
 
-    if request.method == "POST":
+    if request.method == "DELETE":
 
-        id_item = request.form.get("id")
+        INVENTORY = db.get_all_inventory()
+        id_item_list = [item['id'] for item in INVENTORY]
 
-        if not id_item:
-            return render_template("home/invalid-form.html")
-        
-        db.delete_item(id_item)
+        data_request = request.form['id']
 
-        # Shows a page with a message indicating the succesful of the update.
-        return render_template("home/inventory-update.html")
+        if data_request != "":
+            id_item = int(data_request)
 
-    return render_template("home/delete-item.html")
+            db.delete_item(id_item)
+
+        return id_item_list
+
+    if request.method == "GET":
+        return render_template("home/delete-item.html")

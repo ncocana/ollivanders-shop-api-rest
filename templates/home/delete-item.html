@@ -6,11 +6,42 @@
     
     <p>Introduce the ID of the item you want to delete.</p>
     
-    <form action="/inventory/delete" method="post">
-        <input name="id" placeholder="Item's ID" required type="number">
-        <button type="submit">Delete item</button>
-    </form>
+    <input id="deleteInput" name="id" placeholder="Item's ID" required type="number">
+    <button type="submit" id="deleteButton">Delete item</button>
+
+    <div id="output"></div>
 
     <a href="/inventory"><button type="submit">Go back</button></a>
 
+    <script>
+        $(document).ready(function() {
+            $('#deleteButton').click(function() {
+                var data = $('#deleteInput').val();
+                $.ajax({
+                    url: '/inventory/delete',
+                    type: 'DELETE',
+                    data: {'id': data},
+                    dataType: "json",
+                    complete: function(response) {
+                        // console.log((JSON.parse(response.responseText)));
+                        listID = JSON.parse(response.responseText);
+                        let foundMatch = false;
+                        for (let i = 0; i < listID.length; i++) {
+                            if (listID[i] === parseInt(data)) {
+                                $('#output').html("<p>The item has been deleted successfully.</p>");
+                                foundMatch = true;
+                                break; // stop iterating once a match is found
+                            }
+                        }
+
+                        if (!foundMatch && data != "") {
+                            $('#output').html("<p>The ID introduced is not valid.</p>");
+                        } else if (data == "") {
+                            $('#output').html("<p>No ID has been introduced.</p>");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
