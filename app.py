@@ -9,12 +9,12 @@ app = Flask(__name__)
 def index():
     return render_template("home/index.html")
 
-@app.route('/inventory', methods=["GET", "POST"])
+@app.route('/inventory', methods=["GET", "PUT"])
 def inventory():
 
     INVENTORY = db.get_all_inventory()
 
-    if request.method == "POST":
+    if request.method == "PUT":
 
         for item in INVENTORY:
             
@@ -34,12 +34,10 @@ def inventory():
 
             # Updates the values "sell_in" and "quality" in the database.
             db.update_item(int(values[1]), int(values[2]), id_item)
-            
-        # Shows a page with a message indicating the succesful of the update.
-        return render_template("home/inventory-update.html")
 
-    # Shows the inventory's current state if the request's method is "GET".
-    return render_template("home/inventory.html", inventory=INVENTORY)
+    if request.method == "GET":
+        # Shows the inventory's current state if the request's method is "GET".
+        return render_template("home/inventory.html", inventory=INVENTORY)
 
 @app.route('/inventory/create', methods=["GET", "POST"])
 def create():
@@ -82,3 +80,7 @@ def delete():
 
     if request.method == "GET":
         return render_template("home/delete-item.html")
+
+@app.route('/inventory/update')
+def update():
+    return render_template("home/inventory-update.html")

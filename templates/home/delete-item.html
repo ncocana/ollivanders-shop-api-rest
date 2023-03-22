@@ -28,7 +28,7 @@
                         let foundMatch = false;
                         for (let i = 0; i < listID.length; i++) {
                             if (listID[i] === parseInt(data)) {
-                                $('#output').html("<p>The item has been deleted successfully.</p>");
+                                window.location.href = '/inventory/update';
                                 foundMatch = true;
                                 break; // stop iterating once a match is found
                             }
