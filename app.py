@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from logic.GildedRose import *
 from database import db
 
@@ -34,6 +34,8 @@ def inventory():
 
             # Updates the values "sell_in" and "quality" in the database.
             db.update_item(int(values[1]), int(values[2]), id_item)
+
+        return jsonify({'success': True})
 
     if request.method == "GET":
         # Shows the inventory's current state if the request's method is "GET".
