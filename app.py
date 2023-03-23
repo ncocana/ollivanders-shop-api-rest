@@ -1,50 +1,88 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from logic.GildedRose import *
+from database import db
 
 # Turns this file into a Flask application.
 app = Flask(__name__)
-
-INVENTORY = {
-    1: {'name':'+5 Dexterity Vest', 'sell_in': 10, 'quality': 20, 'class': 'ConjuredItem'},
-    2: {'name':'Aged Brie', 'sell_in': 2, 'quality': 0, 'class': 'AgedBrie'},
-    3: {'name':'Elixir of the Mongoose', 'sell_in': 5, 'quality': 7, 'class': 'NormalItem'},
-    4: {'name':'Sulfuras; Hand of Ragnaros', 'sell_in': 0, 'quality': 80, 'class': 'Sulfuras'},
-    5: {'name':'Sulfuras; Hand of Ragnaros', 'sell_in': -1, 'quality': 80, 'class': 'Sulfuras'},
-    6: {'name':'Backstage passes to a TAFKAL80ETC concert', 'sell_in': 15, 'quality': 20, 'class': 'Backstage'},
-    7: {'name':'Backstage passes to a TAFKAL80ETC concert', 'sell_in': 10, 'quality': 49, 'class': 'Backstage'},
-    8: {'name':'Backstage passes to a TAFKAL80ETC concert', 'sell_in': 5, 'quality': 49, 'class': 'Backstage'},
-    9: {'name':'Conjured Mana Cake', 'sell_in': 3, 'quality': 6, 'class': 'ConjuredItem'}
-}
 
 @app.route('/')
 def index():
     return render_template("home/index.html")
 
-@app.route('/inventory', methods=["GET", "POST"])
+@app.route('/inventory', methods=["GET", "PUT"])
 def inventory():
-    if request.method == "POST":
+
+    INVENTORY = db.get_all_inventory()
+
+    if request.method == "PUT":
 
         for item in INVENTORY:
             
-            #Saves the values of the dictionary.
-            name = INVENTORY[item]['name']
-            sell_in = INVENTORY[item]['sell_in']
-            quality = INVENTORY[item]['quality']
-            classItem = INVENTORY[item]['class']
+            #Saves the values of the database.
+            id_item = item['id']
+            name = item['name']
+            sell_in = item['sell_in']
+            quality = item['quality']
+            class_item = item['class_object']
 
             # Creates an object of its respective class and proceeds to update it.
-            itemObject = globals()[classItem](name, sell_in, quality)
-            itemObject.update_quality()
+            item_object = eval(class_item + str((name, sell_in, quality)))
+            item_object.update_quality()
 
-            # Converts "itemObject" to string and splits it by its commas.
-            values = [v.strip() for v in str(itemObject).split(',')]
+            # Converts "item_object" to string and splits it by its commas.
+            values = [v.strip() for v in str(item_object).split(',')]
 
             # Updates the values "sell_in" and "quality" in the database.
-            INVENTORY[item]['sell_in'] = int(values[1])
-            INVENTORY[item]['quality'] = int(values[2])
-            
-            # Shows a page with a message indicating the succesful of the update.
-            return render_template("home/inventory-update.html")
+            db.update_item(int(values[1]), int(values[2]), id_item)
 
-    # Shows the inventory's current state if the request's method is "GET".
-    return render_template("home/inventory.html", inventory=INVENTORY)
+        return jsonify({'success': True})
+
+    if request.method == "GET":
+        # Shows the inventory's current state if the request's method is "GET".
+        return render_template("home/inventory.html", inventory=INVENTORY)
+
+@app.route('/inventory/create', methods=["GET", "POST"])
+def create():
+
+    classes_list = ['NormalItem', 'ConjuredItem', 'AgedBrie', 'Sulfuras', 'Backstage']
+
+    if request.method == "POST":
+
+        name = request.form.get("name")
+        sell_in = request.form.get("sell_in")
+        quality = request.form.get("quality")
+        class_object = request.form.get("class_object")
+
+        if not name or not sell_in or not quality or class_object not in classes_list:
+            return render_template("home/invalid-form.html")
+        
+        db.create_item(name, sell_in, quality, class_object)
+
+        # Shows a page with a message indicating the succesful of the update.
+        return render_template("home/inventory-update.html")
+
+    return render_template("home/create-item.html", classes=set(classes_list))
+
+@app.route('/inventory/delete', methods=["GET", "DELETE"])
+def delete():
+
+    if request.method == "DELETE":
+
+        INVENTORY = db.get_all_inventory()
+        id_item_list = [item['id'] for item in INVENTORY]
+
+        data_request = request.form['id']
+
+        if data_request != "":
+            id_item = int(data_request)
+
+            db.delete_item(id_item)
+
+        return id_item_list
+
+    if request.method == "GET":
+        return render_template("home/delete-item.html")
+
+@app.route('/inventory/update')
+def update():
+    return render_template("home/inventory-update.html")

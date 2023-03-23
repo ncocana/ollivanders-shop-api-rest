@@ -132,3 +132,9 @@ dmypy.json
 # Folder with example code from Flask Web Development and CS50 2022 - Lecture 9 - Flask.
 flasky/
 flask-laboratory/
+
+# Database
+*.db
+
+# VS Code
+.vscode/

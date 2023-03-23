@@ -13,19 +13,35 @@
         </tr>
         {% for item in inventory %}
         <tr>
-            <td>{{ item }}</td>
-            <td>{{ inventory[item].name }}</td>
-            <td>{{ inventory[item].sell_in }}</td>
-            <td>{{ inventory[item].quality }}</td>
-            <td>{{ inventory[item].class }}</td>
+            <td>{{ item['id']  }}</td>
+            <td>{{ item['name'] }}</td>
+            <td>{{ item['sell_in']  }}</td>
+            <td>{{ item['quality']  }}</td>
+            <td>{{ item['class_object']  }}</td>
         </tr>
         {% endfor %}
     </table>
-    <form action="/inventory" method="post">
-        <button type="submit">Update</button>
-    </form>
-    <form action="/" method="get">
-        <button type="submit">Go back</button>
-    </form>
+
+    <button id="updateButton" type="submit">Update all items</button>
+    
+    <a href="/inventory/create"><button type="submit">Create new item</button></a>
+    <a href="/inventory/delete"><button type="submit">Delete item</button></a>
+    <a href="/"><button type="submit">Go back</button></a>
+    
+    <div id="output"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#updateButton').click(function() {
+                $.ajax({
+                    url: '/inventory',
+                    type: 'PUT',
+                    complete: function(response) {
+                        window.location.href = '/inventory/update';
+                    }
+                });
+            });
+        });
+    </script>
 
 {% endblock %}
