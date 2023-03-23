@@ -2,11 +2,14 @@ import pytest
 from app import app
 from database import db
 
+
 @pytest.fixture
 def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
         yield client
+
+# TEST "GET" METHOD.
 
 @pytest.mark.test_endpoints_get
 def test_get_index(client):
@@ -39,6 +42,8 @@ def test_get_inventory_success(client):
     assert response.data is not None
     assert b'Inventory updated' in response.data
 
+# TEST "POST" METHOD.
+
 @pytest.mark.test_endpoints_post
 def test_post_inventory_no_param(client):
     response = client.post("/inventory/create")
@@ -59,12 +64,21 @@ def test_post_inventory_with_param(client):
     assert response.data is not None
     assert b'Inventory updated' in response.data
 
+    INVENTORY = db.get_all_inventory()
+    name_item_list = [item['name'] for item in INVENTORY]
+
+    assert item['name'] in name_item_list
+
+# TEST "PUT" METHOD.
+
 @pytest.mark.test_endpoints_put
 def test_put_inventory(client):
     response = client.put("/inventory")
     assert response.status_code == 200
     assert response.data is not None
     assert b'{"success":true}' in response.data
+
+# TEST "DELETE" METHOD.
 
 @pytest.mark.test_endpoints_delete
 def test_delete_inventory_item(client):
