@@ -135,3 +135,6 @@ flask-laboratory/
 
 # Database
 *.db
+
+# VS Code
+.vscode/
