@@ -59,7 +59,7 @@ def create():
         db.create_item(name, sell_in, quality, class_object)
 
         # Shows a page with a message indicating the succesful of the update.
-        return render_template("home/inventory-update.html")
+        return render_template("home/inventory-success.html")
 
     return render_template("home/create-item.html", classes=set(classes_list))
 
@@ -83,6 +83,6 @@ def delete():
     if request.method == "GET":
         return render_template("home/delete-item.html")
 
-@app.route('/inventory/update')
+@app.route('/inventory/success')
 def update():
-    return render_template("home/inventory-update.html")
+    return render_template("home/inventory-success.html")
