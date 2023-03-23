@@ -12,16 +12,17 @@ def get_all_inventory():
     conn.close()
     return INVENTORY
 
-def get_item(id):
-    conn = get_db_connection()
-    item = conn.execute('SELECT * FROM inventory WHERE id = ?',
-                        (id,)).fetchone()
-    conn.close()
+# Method not used.
+# def get_item(id):
+#     conn = get_db_connection()
+#     item = conn.execute('SELECT * FROM inventory WHERE id = ?',
+#                         (id,)).fetchone()
+#     conn.close()
 
-    if item is None:
-        abort(404)
+#     if item is None:
+#         abort(404)
 
-    return item
+#     return item
 
 def update_item(sell_in, quality, id):
     conn = get_db_connection()
