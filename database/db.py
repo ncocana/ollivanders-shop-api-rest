@@ -1,5 +1,6 @@
 import sqlite3
-from flask import abort
+
+# from flask import abort
 
 
 def get_db_connection():
