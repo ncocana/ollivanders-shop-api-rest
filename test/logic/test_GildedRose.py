@@ -1,5 +1,13 @@
 import pytest
-from logic.GildedRose import GildedRose, Item, NormalItem, ConjuredItem, AgedBrie, Sulfuras, Backstage
+from logic.GildedRose import (
+    GildedRose,
+    Item,
+    NormalItem,
+    ConjuredItem,
+    AgedBrie,
+    Sulfuras,
+    Backstage,
+)
 
 
 # Define items to be tested.
@@ -13,6 +21,7 @@ def items():
 
     return [normal_item, conjured_item, aged_brie, sulfuras, backstage]
 
+
 # Test for NormalItem class.
 @pytest.mark.test_update_quality
 def test_normal_item(items):
@@ -21,6 +30,7 @@ def test_normal_item(items):
     gilded_rose.update_quality()
     assert normal_item.sell_in == 9
     assert normal_item.quality == 19
+
 
 # Test for ConjuredItem class.
 @pytest.mark.test_update_quality
@@ -31,6 +41,7 @@ def test_conjured_item(items):
     assert conjured_item.sell_in == 4
     assert conjured_item.quality == 28
 
+
 # Test for AgedBrie class.
 @pytest.mark.test_update_quality
 def test_aged_brie(items):
@@ -40,6 +51,7 @@ def test_aged_brie(items):
     assert aged_brie.sell_in == 1
     assert aged_brie.quality == 1
 
+
 # Test for Sulfuras class.
 @pytest.mark.test_update_quality
 def test_sulfuras(items):
@@ -48,6 +60,7 @@ def test_sulfuras(items):
     gilded_rose.update_quality()
     assert sulfuras.sell_in == 0
     assert sulfuras.quality == 80
+
 
 # Test for Backstage class.
 @pytest.mark.test_update_quality

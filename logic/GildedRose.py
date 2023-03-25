@@ -1,5 +1,4 @@
 class GildedRose(object):
-
     def __init__(self, items):
         self.items = items
 
@@ -10,7 +9,6 @@ class GildedRose(object):
 
 
 class Item:
-    
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
@@ -21,7 +19,6 @@ class Item:
 
 
 class NormalItem(Item):
-    
     def __init__(self, name, sell_in, quality):
         Item.__init__(self, name, sell_in, quality)
 
@@ -32,7 +29,6 @@ class NormalItem(Item):
     # The goods are constantly degrading in quality
     # as they approach their sell by date.
     def setQuality(self, valor):
-
         # The Quality of an item is never more than 50.
         if self.quality + valor > 50:
             self.quality = 50
@@ -44,16 +40,17 @@ class NormalItem(Item):
         else:
             self.quality = 0
 
-        assert (0 <= self.quality <= 50), "%s's quality out of range" % (self.__class__.__name__)
+        assert 0 <= self.quality <= 50, "%s's quality out of range" % (
+            self.__class__.__name__
+        )
 
     # At the end of each day, our system
     # lowers the values of Quality and
     # Sell_in for every item.
     def update_quality(self):
-
         if self.sell_in > 0:
             self.setQuality(-1)
-        
+
         # Once the sell by date has passed,
         # Quality degrades twice as fast.
         else:
@@ -62,14 +59,12 @@ class NormalItem(Item):
 
 
 class ConjuredItem(NormalItem):
-
     def __init__(self, name, sell_in, quality):
         NormalItem.__init__(self, name, sell_in, quality)
 
     # "Conjured" items degrade in Quality twice
     # as fast as normal items.
     def update_quality(self):
-
         if self.sell_in >= 0:
             self.setQuality(-2)
 
@@ -77,14 +72,12 @@ class ConjuredItem(NormalItem):
 
 
 class AgedBrie(NormalItem):
-
     def __init__(self, name, sell_in, quality):
         Item.__init__(self, name, sell_in, quality)
 
     # "Aged Brie" actually increases in Quality
     # the older it gets.
     def update_quality(self):
-
         if self.sell_in > 0:
             self.setQuality(1)
         else:
@@ -94,24 +87,24 @@ class AgedBrie(NormalItem):
 
 
 class Sulfuras(NormalItem):
-
     def __init__(self, name, sell_in, quality):
         Item.__init__(self, name, sell_in, quality)
 
     # "Sulfuras", being a legendary item,
     # never has to be sold or decreases in Quality.
     def update_quality(self):
-        assert (self.quality == 80), "%s's quality different from 80" % (self.__class__.__name__)
+        assert self.quality == 80, "%s's quality different from 80" % (
+            self.__class__.__name__
+        )
+
 
 class Backstage(NormalItem):
-
     def __init__(self, name, sell_in, quality):
         Item.__init__(self, name, sell_in, quality)
 
     # "Backstage passes", like Aged Brie,
     # increases in Quality as its Sell_in value approaches.
     def update_quality(self):
-
         if self.sell_in > 10:
             self.setQuality(1)
 
