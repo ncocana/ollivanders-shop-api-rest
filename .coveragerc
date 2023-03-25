@@ -1,2 +1,2 @@
 [report]
-omit = test_app.py, ./test/*
+omit = test_app.py, ./test/*, setup.py, init-db.py
