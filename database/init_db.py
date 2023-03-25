@@ -24,4 +24,8 @@ cur.executemany("INSERT INTO inventory (name, sell_in, quality, class_object) VA
 
 connection.commit()
 
+# Assert that the data was inserted correctly.
+inventory_initial = cur.execute('SELECT name, sell_in, quality, class_object FROM inventory').fetchall()
+assert inventory_initial == rows
+
 connection.close()
