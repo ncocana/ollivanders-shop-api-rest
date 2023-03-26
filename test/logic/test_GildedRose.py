@@ -11,33 +11,31 @@ from logic.GildedRose import (
 
 
 # Test for NormalItem class.
+
+
 @pytest.mark.test_update_quality
 def test_normal_item():
-    normal_item = normal_item = NormalItem("Normal Item", 10, 20)
+    normal_item = NormalItem("Normal Item", 10, 20)
     gilded_rose = GildedRose([normal_item])
     gilded_rose.update_quality()
     assert normal_item.sell_in == 9
     assert normal_item.quality == 19
 
 
-# Test for NormalItem class.
 # The quality of an item is never more than 50.
 @pytest.mark.test_update_quality
 def test_normal_item_quality_no_more_than_fifty():
-    normal_item = normal_item = NormalItem("Normal Item", 10, 52)
+    normal_item = NormalItem("Normal Item", 10, 52)
     gilded_rose = GildedRose([normal_item])
     gilded_rose.update_quality()
     assert normal_item.sell_in == 9
     assert normal_item.quality == 50
 
 
-# Test for NormalItem class.
-
-
 # Once the sell by date has passed, quality degrades twice as fast.
 @pytest.mark.test_update_quality
 def test_normal_item_date_passed():
-    normal_item = normal_item = NormalItem("Normal Item", 0, 20)
+    normal_item = NormalItem("Normal Item", 0, 20)
     gilded_rose = GildedRose([normal_item])
     gilded_rose.update_quality()
     assert normal_item.sell_in == -1
@@ -47,7 +45,7 @@ def test_normal_item_date_passed():
 # The quality of an item is never negative.
 @pytest.mark.test_update_quality
 def test_normal_item_quality_not_negative():
-    normal_item = normal_item = NormalItem("Normal Item", 1, 0)
+    normal_item = NormalItem("Normal Item", 1, 0)
     gilded_rose = GildedRose([normal_item])
     gilded_rose.update_quality()
     assert normal_item.sell_in == 0
