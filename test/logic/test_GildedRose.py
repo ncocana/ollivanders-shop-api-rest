@@ -10,43 +10,57 @@ from logic.GildedRose import (
 )
 
 
-# Define items to be tested.
-@pytest.fixture
-def items():
-    normal_item = NormalItem("Normal Item", 10, 20)
-    conjured_item = ConjuredItem("Conjured Item", 5, 30)
-    aged_brie = AgedBrie("Aged Brie", 2, 0)
-    sulfuras = Sulfuras("Sulfuras", 0, 80)
-    backstage = Backstage("Backstage Passes", 15, 20)
-    backstage_ten_days = Backstage("Backstage Passes", 10, 20)
-    backstage_five_days = Backstage("Backstage Passes", 5, 20)
-
-    return [
-        normal_item,
-        conjured_item,
-        aged_brie,
-        sulfuras,
-        backstage,
-        backstage_ten_days,
-        backstage_five_days,
-    ]
-
-
 # Test for NormalItem class.
 @pytest.mark.test_update_quality
-def test_normal_item(items):
-    normal_item = items[0]
+def test_normal_item():
+    normal_item = normal_item = NormalItem("Normal Item", 10, 20)
     gilded_rose = GildedRose([normal_item])
     gilded_rose.update_quality()
     assert normal_item.sell_in == 9
     assert normal_item.quality == 19
 
 
+# Test for NormalItem class.
+# The quality of an item is never more than 50.
+@pytest.mark.test_update_quality
+def test_normal_item_quality_no_more_than_fifty():
+    normal_item = normal_item = NormalItem("Normal Item", 10, 52)
+    gilded_rose = GildedRose([normal_item])
+    gilded_rose.update_quality()
+    assert normal_item.sell_in == 9
+    assert normal_item.quality == 50
+
+
+# Test for NormalItem class.
+
+
+# Once the sell by date has passed, quality degrades twice as fast.
+@pytest.mark.test_update_quality
+def test_normal_item_date_passed():
+    normal_item = normal_item = NormalItem("Normal Item", 0, 20)
+    gilded_rose = GildedRose([normal_item])
+    gilded_rose.update_quality()
+    assert normal_item.sell_in == -1
+    assert normal_item.quality == 18
+
+
+# The quality of an item is never negative.
+@pytest.mark.test_update_quality
+def test_normal_item_quality_not_negative():
+    normal_item = normal_item = NormalItem("Normal Item", 1, 0)
+    gilded_rose = GildedRose([normal_item])
+    gilded_rose.update_quality()
+    assert normal_item.sell_in == 0
+    assert normal_item.quality == 0
+
+
 # Test for ConjuredItem class.
+
+
 # Quality degrades twice as fast as normal items.
 @pytest.mark.test_update_quality
-def test_conjured_item(items):
-    conjured_item = items[1]
+def test_conjured_item():
+    conjured_item = ConjuredItem("Conjured Item", 5, 30)
     gilded_rose = GildedRose([conjured_item])
     gilded_rose.update_quality()
     assert conjured_item.sell_in == 4
@@ -54,21 +68,35 @@ def test_conjured_item(items):
 
 
 # Test for AgedBrie class.
+
+
 # Increase in quality the older it gets.
 @pytest.mark.test_update_quality
-def test_aged_brie(items):
-    aged_brie = items[2]
+def test_aged_brie():
+    aged_brie = AgedBrie("Aged Brie", 2, 0)
     gilded_rose = GildedRose([aged_brie])
     gilded_rose.update_quality()
     assert aged_brie.sell_in == 1
     assert aged_brie.quality == 1
 
 
+# Increase in quality the older it gets.
+@pytest.mark.test_update_quality
+def test_aged_brie_date_passed():
+    aged_brie = AgedBrie("Aged Brie", 0, 0)
+    gilded_rose = GildedRose([aged_brie])
+    gilded_rose.update_quality()
+    assert aged_brie.sell_in == -1
+    assert aged_brie.quality == 2
+
+
 # Test for Sulfuras class.
+
+
 # Sell_in and quality do not change.
 @pytest.mark.test_update_quality
-def test_sulfuras(items):
-    sulfuras = items[3]
+def test_sulfuras():
+    sulfuras = Sulfuras("Sulfuras", 0, 80)
     gilded_rose = GildedRose([sulfuras])
     gilded_rose.update_quality()
     assert sulfuras.sell_in == 0
@@ -76,33 +104,43 @@ def test_sulfuras(items):
 
 
 # Test for Backstage class.
+
+
 # Quality increases by 1 when there are more than 10 days.
 @pytest.mark.test_update_quality
-def test_backstage_normal(items):
-    backstage = items[4]
+def test_backstage_normal():
+    backstage = Backstage("Backstage Passes", 15, 20)
     gilded_rose = GildedRose([backstage])
     gilded_rose.update_quality()
     assert backstage.sell_in == 14
     assert backstage.quality == 21
 
 
-# Test for Backstage class.
 # Quality increases by 2 when there are 10 days or less.
 @pytest.mark.test_update_quality
-def test_backstage_ten_days_or_less(items):
-    backstage = items[5]
+def test_backstage_ten_days_or_less():
+    backstage = Backstage("Backstage Passes", 10, 20)
     gilded_rose = GildedRose([backstage])
     gilded_rose.update_quality()
     assert backstage.sell_in == 9
     assert backstage.quality == 22
 
 
-# Test for Backstage class.
 # Quality increases by 3 when there are 5 days or less.
 @pytest.mark.test_update_quality
-def test_backstage_five_days_or_less(items):
-    backstage = items[6]
+def test_backstage_five_days_or_less():
+    backstage = Backstage("Backstage Passes", 5, 20)
     gilded_rose = GildedRose([backstage])
     gilded_rose.update_quality()
     assert backstage.sell_in == 4
     assert backstage.quality == 23
+
+
+# Quality drops to 0 after the concert.
+@pytest.mark.test_update_quality
+def test_backstage_after_concert():
+    backstage = Backstage("Backstage Passes", 0, 20)
+    gilded_rose = GildedRose([backstage])
+    gilded_rose.update_quality()
+    assert backstage.sell_in == -1
+    assert backstage.quality == 0
