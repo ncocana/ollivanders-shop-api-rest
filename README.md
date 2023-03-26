@@ -123,11 +123,24 @@ Coverage is a tool for measuring the amount of code that is executed during auto
 
 As you can see, through multiple tests, I managed to achieve a coverage of 100%, making sure that all the code is being tested and it works as it should. There's a few files that are excluded from coverage through the ```.coveragerc``` file, such as tests, the ```setup.py``` file, and the ```init_db.py``` file. The reason to exclude this one is because is intended to execute through the ```python``` prompt and it would be difficult to test it as such without modify it; there is, however, a try/except statement to handle potential errors that may arise when connecting to the database or executing the SQL query to insert the mock data. These try/except statements are also excluded from coverage.   
 
+To execute Coverage, write on the terminal:   
+
+```
+coverage run --source ./ -m pytest
+coverage report
+```
+
 ![Coverage](./docs/coverage.png)
 
 ### Black
 
 Black is a code formatter for Python that reformats your code according to a set of predefined rules. It takes as input a Python code file and outputs a version of that file with consistent formatting, such as indentation, line length, and whitespace. Black is designed to be highly opinionated and strives to produce code that is consistent, readable, and easy to maintain.   
+
+To execute Black, write on the terminal:   
+
+```
+black .
+```
 
 ![Black](./docs/black.png)
 
@@ -141,6 +154,12 @@ B101 detects the use of "assert" statements and flags them as a potential securi
 
 B307 detects the use of insecure random number generators such as random or os.urandom with no or weak seeding. It flags these as a potential security issue, as they may be predictable or manipulatable by an attacker. In my case, it raised B307 because of the use of the ```eval()``` function. I tried to find alternatives to ```eval()```, but either they didn't work, or were too complicated to even try. So unfortunately, I ended up giving up and decided to exclude B307 from the analisys.   
 
+To execute Bandit, write on the terminal:   
+
+```
+bandit -r ./database/ ./logic/ ./test/ ./app.py ./test_app.py --skip B101,B307
+```
+
 ![Bandit](./docs/bandit.png)
 
 ### Tox
@@ -148,6 +167,12 @@ B307 detects the use of insecure random number generators such as random or os.u
 Tox is a tool for automating the testing and building of Python packages across multiple environments. It allows you to define a set of virtual environments, each with its own Python version and dependencies, and then run a series of tests or commands against each of these environments.   
 
 All the images that you have seen until now in this section are outputs from Tox.   
+
+To execute Tox, write on the terminal:   
+
+```
+tox
+```
 
 ![Tox](./docs/tox.png)
 
