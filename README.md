@@ -6,6 +6,12 @@
 -   [**How to install**](#how-to-install)
 -   [**How to use**](#how-to-use)
 -   [**Testing and development**](#testing-and-development)
+    -   [**Requirements for developers**](#requirements-for-developers)
+    -   [**Pytest**](#pytest)
+    -   [**Coverage**](#coverage)
+    -   [**Black**](#black)
+    -   [**Bandit**](#bandit)
+    -   [**Tox**](#tox)
 -   [**Docker**](#docker)
 
 ## Introduction
@@ -17,6 +23,8 @@ I will leave the [link to the project](https://github.com/dfleta/flask-rest-ci-b
 ## How to install
 
 The first thing you need to know is that you don't to install or create an account for any database, as Ollivanders uses an [SQLite database](https://docs.python.org/3/library/sqlite3.html). SQLite, or more precisely ```sqlite3```, is a module in Python's standard library that provides a simple and efficient way to interact with SQLite databases from within Python programs. This means that you only will need to execute one command to create your local database.   
+
+However, you will need to have installed before proceeding: ```Git```, ```Python```, and ```pip```.
 
 Let's start the tutorial:
 
@@ -139,7 +147,7 @@ B307 detects the use of insecure random number generators such as random or os.u
 
 Tox is a tool for automating the testing and building of Python packages across multiple environments. It allows you to define a set of virtual environments, each with its own Python version and dependencies, and then run a series of tests or commands against each of these environments.   
 
-All the images that you have seen until now in this section are outputs from tox.   
+All the images that you have seen until now in this section are outputs from Tox.   
 
 ![Tox](./docs/tox.png)
 
