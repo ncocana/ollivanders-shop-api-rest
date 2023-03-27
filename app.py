@@ -82,5 +82,5 @@ def delete():
 
 
 @app.route("/inventory/success")
-def update():
+def success():
     return render_template("home/inventory-success.html")
