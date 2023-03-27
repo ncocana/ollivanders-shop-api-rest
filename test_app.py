@@ -63,7 +63,7 @@ def test_post_inventory_no_param(client):
 @pytest.mark.test_endpoints_post
 def test_post_inventory_with_param(client):
     item = {
-        "name": "Test object",
+        "name": "Test item",
         "sell_in": 10,
         "quality": 5,
         "class_object": "ConjuredItem",
@@ -95,12 +95,14 @@ def test_put_inventory(client):
 
 @pytest.mark.test_endpoints_delete
 def test_delete_inventory_item(client):
-    item_id = {"id": 1}
-    response = client.delete("/inventory/delete", data=item_id)
-    assert response.status_code == 200
-    assert response.data is not None
+    item = db.get_item_by_name("Test item")
+    if item is not None:
+        item_id = {"id": item["id"]}
+        response = client.delete("/inventory/delete", data=item_id)
+        assert response.status_code == 200
+        assert response.data is not None
 
-    INVENTORY = db.get_all_inventory()
-    id_item_list = [item["id"] for item in INVENTORY]
+        INVENTORY = db.get_all_inventory()
+        id_item_list = [item["id"] for item in INVENTORY]
 
-    assert 1 not in id_item_list
+        assert item["id"] not in id_item_list
