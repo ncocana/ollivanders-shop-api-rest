@@ -178,3 +178,30 @@ tox
 
 ## Docker
 
+A Dockerfile is a text file that contains instructions for building a Docker image. It is a script that automates the creation of a Docker image, which is a lightweight, standalone, and executable package that includes everything needed to run an application, such as code, libraries, and system tools.   
+
+You can use the Dockerfile in this repository to create a Docker image, which in turn can be used to create a Docker container for this application.   
+
+1. Assuming you already cloned the repository, make sure you're into the project's directory and that you have Docker installed.
+
+2. Build the Docker image by running the following command. This will create a Docker image with the tag "ollivanders-rest-api".
+
+    ```
+    docker build -t ollivanders-rest-api .
+    ```
+
+    ![Docker build](./docs/docker_build.png)
+
+    You can view the image created with the command: ```docker images```.   
+
+3. Now, run the Docker container using the following command. This will start the Flask application inside the Docker container and map port 5000 from the container to port 5000 on your local machine, allowing you to access the Flask application in your web browser at [http://localhost:5000](http://localhost:5000) or [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
+
+    ```
+    docker run --name=ollivanders -p 5000:5000 -d ollivanders-rest-api:latest
+    ```
+
+    You can view the container created with the command: ```docker ps -a``` (this will show you all the containers, running or not. To view only the ones running at the moment: ```docker ps```).   
+
+    You can enter the container with: ```docker exec -it ollivanders sh```.   
+
+    To view the logs of the container: ```docker logs ollivanders```.   
