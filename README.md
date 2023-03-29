@@ -150,9 +150,9 @@ Bandit is a security linter tool for Python that analyzes your code for potentia
 
 In my case, I have told bandit to analyze the folders and files concerning my project, leaving out those pertaining to configuration and other packages. I have also told it to skip the tests B101 and B307. B101 and B307 are security issues identifiers in Bandit that refers to the detection of certain vulnerabilities in my code.   
 
-B101 detects the use of "assert" statements and flags them as a potential security issue, as an attacker may be able to disable or bypass the "assert" statement and exploit the underlying vulnerability. As I use asserts in my tests, I decided to exclude B101 from the analisys.   
+[B101](https://bandit.readthedocs.io/en/latest/plugins/b101_assert_used.html) detects the use of "assert" statements and flags them as a potential security issue, as an attacker may be able to disable or bypass the "assert" statement and exploit the underlying vulnerability. As I use asserts in my tests, I decided to exclude B101 from the analisys.   
 
-B307 detects the use of insecure random number generators such as random or os.urandom with no or weak seeding. It flags these as a potential security issue, as they may be predictable or manipulatable by an attacker. In my case, it raised B307 because of the use of the ```eval()``` function. I tried to find alternatives to ```eval()```, but either they didn't work, or were too complicated to even try. So unfortunately, I ended up giving up and decided to exclude B307 from the analisys.   
+[B307](https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval) detects the use of insecure random number generators such as random or os.urandom with no or weak seeding. It flags these as a potential security issue, as they may be predictable or manipulatable by an attacker. In my case, it raised B307 because of the use of the ```eval()``` function. I tried to find alternatives to ```eval()```, but either they didn't work, or were too complicated to even try. So unfortunately, I ended up giving up and decided to exclude B307 from the analisys.   
 
 To execute Bandit, write on the terminal:   
 
