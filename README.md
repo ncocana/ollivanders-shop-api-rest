@@ -26,7 +26,7 @@ I will leave the [link to the project](https://github.com/dfleta/flask-rest-ci-b
 The database has one table with five fields: ```id```, ```name```, ```sell_in```, ```quality```, and ```class_object```.   
 
 ```id``` refers to the ID of the item, and it will assigned automatically to each new item.   
-```name``` refers to the name of the item.
+```name``` refers to the name of the item.   
 ```sell_in``` refers to the number of days until the item is sold.   
 ```quality``` refers to the quality of the object, which increases or decreases (depending on its class) as the days pass.   
 ```class_object``` refers to the type of the item, which will determine how the item's quality changes.   
