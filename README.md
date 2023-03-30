@@ -2,22 +2,25 @@
 
 **Table of contents**
 
--   [**Introduction**](#introduction)
-    -   [**Database schema**](#database-schema)
--   [**How to install**](#how-to-install)
--   [**How to use**](#how-to-use)
--   [**Testing and development**](#testing-and-development)
-    -   [**Requirements for developers**](#requirements-for-developers)
-    -   [**Pytest**](#pytest)
-    -   [**Coverage**](#coverage)
-    -   [**Black**](#black)
-    -   [**Bandit**](#bandit)
-    -   [**Tox**](#tox)
--   [**Docker**](#docker)
+- [Ollivanders Shop — REST API](#ollivanders-shop--rest-api)
+  - [Introduction](#introduction)
+    - [Database schema](#database-schema)
+  - [How to install](#how-to-install)
+  - [How to use](#how-to-use)
+  - [Testing and development](#testing-and-development)
+    - [Requirements for developers](#requirements-for-developers)
+    - [Pytest](#pytest)
+    - [Coverage](#coverage)
+    - [Black](#black)
+    - [Bandit](#bandit)
+    - [Tox](#tox)
+  - [Docker](#docker)
 
 ## Introduction
 
 Ollivanders Shop is a [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) that allows you to make [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations (such as get, update, create, or delete data from a database) using the website created for it. This website will allow you to see the content of the database and choose if you want to update it, insert new data, or delete an already existing one, by just hitting a button (and if neccessary, write the data asked to do such operations).   
+
+![Webpage inventary](./docs/webpage_inventary.png)
 
 I will leave the [link to the project](https://github.com/dfleta/flask-rest-ci-boilerplate) statement to those curious about the instructions we were given.   
 
@@ -100,7 +103,7 @@ Let's start the tutorial:
     flask --debug run
     ```
 
-4. Click on the IP showed on the terminal (or write the IP on your brower) to access website.
+4. Click on the IP showed on the terminal (or write the IP on your brower) to access the website.
 
     ```
     * Running on http://127.0.0.1:5000
@@ -108,7 +111,9 @@ Let's start the tutorial:
 
     ![Flask run](./docs/flask_run.png)
 
-5. The website's interface is simple and intuive enough to know what to do without more guidance. You just need to click on the button of your choice to perform the CRUD operations you want.
+5. The website's interface is simple and intuive enough to know what to do without more guidance. You just need to click on the button of your choice to perform the CRUD operations you want. And remember, swish and flick!   
+
+    ![Webpage index](./docs/webpage_index.png)
 
 ## Testing and development
 
