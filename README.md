@@ -3,6 +3,7 @@
 **Table of contents**
 
 -   [**Introduction**](#introduction)
+    -   [**Database schema**](#database-schema)
 -   [**How to install**](#how-to-install)
 -   [**How to use**](#how-to-use)
 -   [**Testing and development**](#testing-and-development)
@@ -19,6 +20,20 @@
 Ollivanders Shop is a [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) that allows you to make [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations (such as get, update, create, or delete data from a database) using the website created for it. This website will allow you to see the content of the database and choose if you want to update it, insert new data, or delete an already existing one, by just hitting a button (and if neccessary, write the data asked to do such operations).   
 
 I will leave the [link to the project](https://github.com/dfleta/flask-rest-ci-boilerplate) statement to those curious about the instructions we were given.   
+
+### Database schema
+
+The database has one table with five fields: ```id```, ```name```, ```sell_in```, ```quality```, and ```class_object```.   
+
+```id``` refers to the ID of the item, and it will assigned automatically to each new item.   
+```name``` refers to the name of the item.
+```sell_in``` refers to the number of days until the item is sold.   
+```quality``` refers to the quality of the object, which increases or decreases (depending on its class) as the days pass.   
+```class_object``` refers to the type of the item, which will determine how the item's quality changes.   
+
+Here is a sample of what the database's table will look like:   
+
+![Database example](./docs/database_example.png)
 
 ## How to install
 
