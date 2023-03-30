@@ -49,5 +49,50 @@
                 });
             });
         });
+
+        $(document).ready(function() {
+            $('#deleteInput').on('input', function() {
+                var data = $('#deleteInput').val();
+                $.ajax({
+                    url: '/inventory/get',
+                    type: 'GET',
+                    data: {'id': data},
+                    dataType: "json",
+                    complete: function(response) {
+                        // console.log(response.responseJSON);
+                        if (response.status == 200) {
+                            item = response.responseJSON
+                            $('#output').html(`
+                                <div class='container-box-item'>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Item</th>
+                                                <th>Sell in</th>
+                                                <th>Quality</th>
+                                                <th>Class</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>` + item['id'] + `</td>
+                                                <td>` + item['name'] + `</td>
+                                                <td>` + item['sell_in'] + `</td>
+                                                <td>` + item['quality'] + `</td>
+                                                <td>` + item['class_object'] + `</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>`);
+                        } else if (response.status == 404) {
+                            $('#output').html("<p>Item not found.</p>");
+                        } else {
+                            $('#output').html("");
+                        }
+                    }
+                });
+            });
+        });
     </script>
 {% endblock %}

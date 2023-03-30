@@ -18,6 +18,13 @@ def get_all_inventory():
     return INVENTORY
 
 
+def get_item_by_id(id):
+    conn = get_db_connection()
+    item = conn.execute("SELECT * FROM inventory WHERE id = ?", (id,)).fetchone()
+    conn.close()
+    return item
+
+
 def get_item_by_name(name):
     conn = get_db_connection()
     item = conn.execute("SELECT * FROM inventory WHERE name = ?", (name,)).fetchone()

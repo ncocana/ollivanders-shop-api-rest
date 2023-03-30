@@ -84,3 +84,20 @@ def delete():
 @app.route("/inventory/success")
 def success():
     return render_template("home/inventory-success.html")
+
+
+@app.route("/inventory/get", methods=["GET"])
+def get_item():
+    data_request = request.args.get("id")
+    if data_request is None:
+        return jsonify({"error": "ID parameter missing"}), 400
+
+    try:
+        item = db.get_item_by_id(int(data_request))
+    except:
+        return jsonify({"error": "Invalid ID parameter"}), 400
+
+    if item is None:
+        return jsonify({"error": "Item not found"}), 404
+
+    return dict(item)
