@@ -85,10 +85,10 @@
                                         </tbody>
                                     </table>
                                 </div>`);
-                        } else if (response.status == 404) {
-                            $('#output').html("<p>Item not found.</p>");
                         } else if (isNaN(data)) {
                             $('#output').html("<p>The ID must be a number.</p>");
+                        } else if ((response.status == 404 || response.status == 400) && data != "") {
+                            $('#output').html("<p>Item not found.</p>");
                         } else {
                             $('#output').html("");
                         }
