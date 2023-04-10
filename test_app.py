@@ -92,6 +92,20 @@ def test_post_inventory_no_param(client):
 
 
 @pytest.mark.test_endpoints_post
+def test_post_inventory_with_wrong_param(client):
+    item = {
+        "name": "Test item",
+        "sell_in": "String",
+        "quality": "String",
+        "class_object": "ConjuredItem",
+    }
+    response = client.post("/inventory/create", data=item)
+    assert response.status_code == 200
+    assert response.data is not None
+    assert b"Invalidad data in the form" in response.data
+
+
+@pytest.mark.test_endpoints_post
 def test_post_inventory_with_param(client):
     item = {
         "name": "Test item",

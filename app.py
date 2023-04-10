@@ -54,6 +54,12 @@ def create():
         if not name or not sell_in or not quality or class_object not in classes_list:
             return render_template("home/invalid-form.html")
 
+        try:
+            int(sell_in)
+            int(quality)
+        except Exception:
+            return render_template("home/invalid-form.html")
+
         db.create_item(name, sell_in, quality, class_object)
 
         # Shows a page with a message indicating the succesful of the update.
@@ -71,9 +77,7 @@ def delete():
         data_request = request.form["id"]
 
         if data_request != "":
-            id_item = int(data_request)
-
-            db.delete_item(id_item)
+            db.delete_item(data_request)
 
         return id_item_list
 

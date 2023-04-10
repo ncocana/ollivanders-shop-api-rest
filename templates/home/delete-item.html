@@ -87,6 +87,8 @@
                                 </div>`);
                         } else if (response.status == 404) {
                             $('#output').html("<p>Item not found.</p>");
+                        } else if (isNaN(data)) {
+                            $('#output').html("<p>The ID must be a number.</p>");
                         } else {
                             $('#output').html("");
                         }
