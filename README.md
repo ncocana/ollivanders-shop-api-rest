@@ -44,6 +44,8 @@ The first thing you need to know is that you don't to install or create an accou
 
 However, you will need to have installed before proceeding: ```Git```, ```Python```, and ```pip```.
 
+**IMPORTANT:** There's also a Docker version of this application using a MySQL database in a Docker container. This version surged due to an assignment in *Sistemas Informáticos* (Computer Systems), which asked us to connect two Docker containers (one of a database, and another of a web application) with each other. The repository, along with the instructions to install and use it, can be found in [this link](https://github.com/ncocana/ollivanders-shop-api-rest-Docker-MySQL).
+
 Let's start the tutorial:
 
 1. First, create a directory/folder in which you will store the application. If you doing this with the terminal, you will need to use this commands:
