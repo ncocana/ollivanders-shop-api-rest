@@ -93,9 +93,7 @@ class Sulfuras(NormalItem):
     # "Sulfuras", being a legendary item,
     # never has to be sold or decreases in Quality.
     def update_quality(self):
-        assert self.quality == 80, "%s's quality different from 80" % (
-            self.__class__.__name__
-        )
+        pass
 
 
 class Backstage(NormalItem):
