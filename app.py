@@ -74,10 +74,10 @@ def delete():
         INVENTORY = db.get_all_inventory()
         id_item_list = [item["id"] for item in INVENTORY]
 
-        data_request = request.form["id"]
+        id_item = request.form["id"]
 
-        if data_request != "":
-            db.delete_item(data_request)
+        if id_item != "":
+            db.delete_item(id_item)
 
         return id_item_list
 
